@@ -79,4 +79,5 @@ async def print_hello():
         time.sleep(60)
 
 
+print_hello()
 client.run_until_disconnected()
