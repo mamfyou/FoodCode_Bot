@@ -1,3 +1,4 @@
+import asyncio
 import time
 
 from telethon import TelegramClient, events
@@ -73,11 +74,11 @@ async def handle_message_kheft(event):
         await client.send_message(user_id, 'سلام وقتتون بخیر من بلیط رو میخواستم')
 
 
-async def print_hello():
-    while True:
-        print('ببین ساعت چند شده!!! ', time.time())
-        time.sleep(60)
-
-
-print_hello()
+# async def print_hello():
+#     while True:
+#         print('ببین ساعت چند شده!!! ', time.time())
+#         time.sleep(60)
+#
+#
+# asyncio.run(print_hello())
 client.run_until_disconnected()
