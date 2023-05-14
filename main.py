@@ -9,6 +9,9 @@ session_name = 'messages'
 
 client = TelegramClient(session_name, api_id, api_hash).start(phone_number)
 
+food_is_running = False
+ticket_is_running = False
+
 
 @client.on(events.NewMessage(chats=int(config('FOOD_GROUP_ID')), pattern='کد دارم'))
 async def send_I_use(event):
