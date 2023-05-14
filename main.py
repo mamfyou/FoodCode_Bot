@@ -46,8 +46,9 @@ async def test_send_I_use(event):
 @client.on(events.NewMessage(pattern='/start_food'))
 async def start_food(event):
     global food_is_running
-    if not food_is_running:
-        food_is_running = True
+    food_is_running = True
+    await client.send_message(int(config('MY_ID')), 'کد غذا گیر روشن شد!')
+
 
 
 @client.on(events.NewMessage(chats=int(config('TICKET_GROUP_ONE'))))
@@ -84,22 +85,25 @@ async def handle_message_kheft(event):
 
 @client.on(events.NewMessage(chats=int(config('TEST_FOOD_GROUP_ID'))))
 async def handle_message_test(event):
-    if '#فروشی' in event.raw_text and \
-            (
-                    'قم تهران' in event.raw_text or 'قم به تهران' in event.raw_text or 'قم‌تهران' in event.raw_text) and \
-            ('سه شنبه' in event.raw_text or 'سه‌شنبه' in event.raw_text) and \
-            ('9' in event.raw_text or '۹' in event.raw_text):
-        sender = await event.get_sender()
-        user_id = sender.id
-        await client.send_message(user_id, 'سلام وقتتون بخیر من بلیط رو میخواستم')
-        await client.send_message(int(config('MY_ID')), 'سلام بلیط گرفتم برات')
+    global ticket_is_running
+    if ticket_is_running:
+        if '#فروشی' in event.raw_text and \
+                (
+                        'قم تهران' in event.raw_text or 'قم به تهران' in event.raw_text or 'قم‌تهران' in event.raw_text) and \
+                ('سه شنبه' in event.raw_text or 'سه‌شنبه' in event.raw_text) and \
+                ('9' in event.raw_text or '۹' in event.raw_text):
+            sender = await event.get_sender()
+            user_id = sender.id
+            await client.send_message(user_id, 'سلام وقتتون بخیر من بلیط رو میخواستم')
+            await client.send_message(int(config('MY_ID')), 'سلام بلیط گرفتم برات')
+            ticket_is_running = False
 
 
 @client.on(events.NewMessage(pattern='/start_ticket'))
 async def start_ticket(event):
     global ticket_is_running
-    if not ticket_is_running:
-        ticket_is_running = True
+    ticket_is_running = True
+    await client.send_message(int(config('MY_ID')), 'بلیط گیر روشن شد!')
 
 
 @client.on(events.NewMessage(pattern='/stop_ticket'))
